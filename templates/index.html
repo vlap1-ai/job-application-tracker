@@ -1,0 +1,180 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Job Application Tracker</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>💼 Job Application Tracker</h1>
+
+        <div id="clock"></div>
+
+        <!-- Dashboard -->
+
+        <div class="dashboard-card">
+
+            <h2>Application Statistics</h2>
+
+            <p id="totalApps">Total Applications: 0</p>
+
+            <p>Interviews: 1</p>
+
+            <p>Offers: 0</p>
+
+        </div>
+
+        <!-- Form -->
+
+        <div class="form-card">
+
+            <h2>Add Application</h2>
+
+            <form id="applicationForm">
+
+                <input
+                    id="company"
+                    type="text"
+                    placeholder="Company Name"
+                    required>
+
+                <input
+                    id="position"
+                    type="text"
+                    placeholder="Job Position"
+                    required>
+
+                <select id="status">
+
+                    <option>Applied</option>
+
+                    <option>Interview</option>
+
+                    <option>Assessment</option>
+
+                    <option>Rejected</option>
+
+                    <option>Offer</option>
+
+                </select>
+
+                <button type="submit">
+                    Add Application
+                </button>
+
+            </form>
+
+            <p id="message"></p>
+
+        </div>
+
+        <!-- Applications -->
+
+        <div class="applications-card">
+
+            <h2>Applications</h2>
+
+            <ul id="applicationList">
+
+                <li>Google - SWE Intern - Applied</li>
+
+                <li>Uber - Backend Intern - Interview</li>
+
+                <li>Amazon - IT Support - Rejected</li>
+
+                <li>DoorDash - IT Support - Applied</li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        // CLOCK
+
+        function updateClock(){
+
+            const now = new Date();
+
+            document.getElementById("clock").innerText =
+            now.toLocaleTimeString();
+
+        }
+
+        setInterval(updateClock, 1000);
+
+        updateClock();
+
+
+        // TOTAL APPLICATIONS
+
+        function updateTotal(){
+
+            const total =
+            document.querySelectorAll("#applicationList li").length;
+
+            document.getElementById("totalApps").innerText =
+            `Total Applications: ${total}`;
+        }
+
+        updateTotal();
+
+
+        // ADD APPLICATION
+
+        document
+        .getElementById("applicationForm")
+        .addEventListener("submit", function(event){
+
+            event.preventDefault();
+
+            const company =
+            document.getElementById("company").value;
+
+            const position =
+            document.getElementById("position").value;
+
+            const status =
+            document.getElementById("status").value;
+
+            const li =
+            document.createElement("li");
+
+            li.innerText =
+            `${company} - ${position} - ${status}`;
+
+            document
+            .getElementById("applicationList")
+            .appendChild(li);
+
+            updateTotal();
+
+            document.getElementById("message").innerHTML =
+            "✅ Application Added!";
+
+            this.reset();
+
+        });
+
+    </script>
+
+</body>
+
+</html>
+```
